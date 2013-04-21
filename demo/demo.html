@@ -1,0 +1,555 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Sortable Style Changer | A jQuery Sortable Extension</title>
+        
+        <link rel="stylesheet" href="includes/css/style.css" />
+        <link rel="stylesheet" href="includes/cupertino/jquery-ui-1.8.20.custom.css" />
+        
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=desert"></script>
+        <script src="../src/js/jquery.ui.sortable.style.js"></script>
+        <script src="../src/js/jquery.ui.touch.js"></script>
+        
+        <script type="text/javascript">
+            (function($) {
+                $(document).ready(function() {
+                    //Demo #1
+                    $( "#sortable1, #sortable2" ).sortable({
+                        connectWith: ".connectedSortableDefault"
+                    }).disableSelection();
+                    
+                    //Demo #2
+                    $( "#sortable3" ).sortable({
+                        connectWith: ".connectedSortableChange",
+                        styleClass:  "ui-state-default"
+                    }).disableSelection();
+                    
+                    $( "#sortable4" ).sortable({
+                        connectWith: ".connectedSortableChange",
+                        styleClass:  "ui-state-highlight"
+                    }).disableSelection();
+                    
+                    //Demo #3
+                    $( "#sortable5" ).sortable({
+                        connectWith: ".connectedSortableSpeed",
+                        styleClass:  "ui-state-default",
+                        styleChangeDuration: 0
+                    }).disableSelection();
+                    
+                    $( "#sortable6" ).sortable({
+                        connectWith: ".connectedSortableSpeed",
+                        styleClass:  "ui-state-highlight",
+                        styleChangeDuration: 0
+                    }).disableSelection();
+                    
+                    //Demo #4
+                    $( "#sortable7" ).sortable({
+                        connectWith: ".connectedSortableCallback",
+                        styleClass:  "ui-state-default",
+                        styleChangeDuration: 1000,
+                        stylechange: function (event, ui) {
+                            alert('I (sortable7) have received an item');
+                        }
+                    }).disableSelection();
+                    
+                    $( "#sortable8" ).sortable({
+                        connectWith: ".connectedSortableCallback",
+                        styleClass:  "ui-state-highlight",
+                        styleChangeDuration: 1000,
+                        stylechange: function (event, ui) {
+                            alert('I (sortable8) have received an item');
+                        }
+                    }).disableSelection();
+                    
+                    //Demo #5
+                    $( "#sortable9" ).sortable({
+                        connectWith: ".connectedSortableTrigger",
+                        styleClass:  "ui-state-default",
+                        styleChangeDuration: 1000
+                    }).disableSelection();
+                    
+                    $( "#sortable10" ).sortable({
+                        connectWith: ".connectedSortableTrigger",
+                        styleClass:  "ui-state-highlight",
+                        styleChangeDuration: 1000
+                    }).disableSelection();
+                    
+                    $("#sortable9, #sortable10").on(
+                        'sortstylechange',
+                        function (e) {
+                            alert('sortable9 or sortable10 recived an item');
+                        }
+                    );
+                });
+            })(jQuery);
+        </script>
+    </head>
+    <body>
+        <div id="page">
+            <div id="container">
+                <a name="what"></a>
+                <h1>What is It?</h1>
+                <p>
+                    This is a tiny extension of jQuery UI Sortable.  By default
+                    sortable allows you to connect two or more sortable 
+                    elements together. Unfortunately, there is no option 
+                    provided to change the sytle of the element that was moved 
+                    to the style of the sortable element it was moved to.  This 
+                    extension adds an option to easily make that happen.
+                </p>
+                <ul>
+                    <li>
+                        Current Version: 0.1 (4-21-2013)
+                    </li>
+                    <li>
+                        <a href="http://github.com/abconrad/jquery-ui-sortable-style-changer" target="_blank">Follow This Project on GitHub</a>
+                    </li>
+                    <li>
+                        Download the
+                        <a href="http://raw.github.com/abconrad/jquery-ui-sortable-style-changer/master/src/js/jquery.ui.sortable.style.js" target="_blank">full source code</a>
+                        or the 
+                        <a href="http://raw.github.com/abconrad/jquery-ui-sortable-style-changer/master/src/js/jquery.ui.sortable.style.min.js" target="_blank">minified source code</a>,
+                    </li>
+                    <li>
+                        Download the 
+                        <a href="http://github.com/abconrad/jquery-ui-sortable-style-changer/tree/master/demo" target="_blank">Demo</a>
+                    </li>
+                    <li>
+                        Please report any bugs on the 
+                        <a href="http://github.com/abconrad/jquery-ui-sortable-style-changer/issues" target="_blank">issue tracker</a>
+                    </li>
+                </ul>
+                
+                <a name="demos"></a>
+                <h1>Demos</h1>
+                
+                <a name="default"></a>
+                <h2>Default Functionality From jQuery UI</h2>
+                <p>
+                    Sort items from one list into another and vice versa, by 
+                    passing a selector into the 
+                    <code>connectWith</code> option. The simplest way to do 
+                    this is to group all related lists with a CSS class, and 
+                    then pass that class into the sortable function (i.e., 
+                    <code>connectWith: '.myclass'</code>).
+                </p>
+                <p>
+                    The style doesn't change when you move the list items.
+                </p>
+                <div class="box">
+                    <ul id="sortable1" class="connectedSortableDefault ui-sortable">
+                        <li class="ui-state-default">Item 1</li>
+                        <li class="ui-state-default">Item 2</li>
+                        <li class="ui-state-default">Item 3</li>
+                        <li class="ui-state-default">Item 4</li>
+                        <li class="ui-state-default">Item 5</li>
+                    </ul>
+                    <ul id="sortable2" class="connectedSortableDefault ui-sortable">
+                        <li class="ui-state-highlight">Item 1</li>
+                        <li class="ui-state-highlight">Item 2</li>
+                        <li class="ui-state-highlight">Item 3</li>
+                        <li class="ui-state-highlight">Item 4</li>
+                        <li class="ui-state-highlight">Item 5</li>
+                    </ul>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Default Functionality
+    $( "#sortable1, #sortable2" ).sortable({
+        connectWith: ".connectedSortable"
+    }).disableSelection();
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;ul id=&quot;sortable1&quot; class=&quot;connectedSortableDefault ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul id=&quot;sortable2&quot; class=&quot;connectedSortableDefault ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+                    </pre>
+                </div>
+                
+                <a name="changestyle"></a>
+                <h2>Change List Item Style</h2>
+                <p>
+                    Sort items from one list into another and vice versa.
+                    Because the <code>styleClass</code> option is not null the 
+                    plugin will change the list item's class to the class that
+                    is set in <code>styleClass</code> of the receiving sortable
+                    element.
+                </p>
+                <div class="box">
+                    <ul id="sortable3" class="connectedSortableChange ui-sortable">
+                        <li class="ui-state-default">List A Item 1</li>
+                        <li class="ui-state-default">List A Item 2</li>
+                        <li class="ui-state-default">List A Item 3</li>
+                        <li class="ui-state-default">List A Item 4</li>
+                        <li class="ui-state-default">List A Item 5</li>
+                    </ul>
+                    <ul id="sortable4" class="connectedSortableChange ui-sortable">
+                        <li class="ui-state-highlight">List B Item 1</li>
+                        <li class="ui-state-highlight">List B Item 2</li>
+                        <li class="ui-state-highlight">List B Item 3</li>
+                        <li class="ui-state-highlight">List B Item 4</li>
+                        <li class="ui-state-highlight">List B Item 5</li>
+                    </ul>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Change List Item Style
+    $( "#sortable3" ).sortable({
+        connectWith: ".connectedSortableChange",
+        styleClass:  "ui-state-default"
+    }).disableSelection();
+
+    $( "#sortable4" ).sortable({
+        connectWith: ".connectedSortableChange",
+        styleClass:  "ui-state-highlight"
+    }).disableSelection();
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;ul id=&quot;sortable3&quot; class=&quot;connectedSortableChange ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul id=&quot;sortable4&quot; class=&quot;connectedSortableChange ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+                    </pre>
+                </div>
+                
+                <a name="changestyle"></a>
+                <h2>Change List Item Style with a Custom Transition Speed</h2>
+                <p>
+                    Sort items from one list into another and vice versa.
+                    The <code>styleChangeDuration</code> option is set to
+                    <code>0</code> so the style change will be immediate.
+                </p>
+                <div class="box">
+                    <ul id="sortable5" class="connectedSortableSpeed ui-sortable">
+                        <li class="ui-state-default">List A Item 1</li>
+                        <li class="ui-state-default">List A Item 2</li>
+                        <li class="ui-state-default">List A Item 3</li>
+                        <li class="ui-state-default">List A Item 4</li>
+                        <li class="ui-state-default">List A Item 5</li>
+                    </ul>
+                    <ul id="sortable6" class="connectedSortableSpeed ui-sortable">
+                        <li class="ui-state-highlight">List B Item 1</li>
+                        <li class="ui-state-highlight">List B Item 2</li>
+                        <li class="ui-state-highlight">List B Item 3</li>
+                        <li class="ui-state-highlight">List B Item 4</li>
+                        <li class="ui-state-highlight">List B Item 5</li>
+                    </ul>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Change List Item Style with a Custom Transition Speed
+    $( "#sortable5" ).sortable({
+        connectWith: ".connectedSortableSpeed",
+        styleClass:  "ui-state-default",
+        styleChangeDuration: 0
+    }).disableSelection();
+
+    $( "#sortable6" ).sortable({
+        connectWith: ".connectedSortableSpeed",
+        styleClass:  "ui-state-highlight",
+        styleChangeDuration: 0
+    }).disableSelection();
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;div class=&quot;box&quot;&gt;
+        &lt;ul id=&quot;sortable5&quot; class=&quot;connectedSortableSpeed ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;ul id=&quot;sortable6&quot; class=&quot;connectedSortableSpeed ui-sortable&quot;&gt;
+            &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 1&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 2&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 3&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 4&lt;/li&gt;
+            &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 5&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+                    </pre>
+                </div>
+                
+                <a name="custom"></a>
+                <h2>Custom Functionality after Transition</h2>
+                <p>
+                    Sort items from one list into another and vice versa.
+                    Call a custom function after the transition is complete. 
+                    This is done by passing <code>stylechange</code> as a 
+                    callback function.
+                </p>
+                <div class="box">
+                    <ul id="sortable7" class="connectedSortableCallback ui-sortable">
+                        <li class="ui-state-default">List A Item 1</li>
+                        <li class="ui-state-default">List A Item 2</li>
+                        <li class="ui-state-default">List A Item 3</li>
+                        <li class="ui-state-default">List A Item 4</li>
+                        <li class="ui-state-default">List A Item 5</li>
+                    </ul>
+                    <ul id="sortable8" class="connectedSortableCallback ui-sortable">
+                        <li class="ui-state-highlight">List B Item 1</li>
+                        <li class="ui-state-highlight">List B Item 2</li>
+                        <li class="ui-state-highlight">List B Item 3</li>
+                        <li class="ui-state-highlight">List B Item 4</li>
+                        <li class="ui-state-highlight">List B Item 5</li>
+                    </ul>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Custom Functionality after Transition
+    $( "#sortable7" ).sortable({
+        connectWith: ".connectedSortableCallback",
+        styleClass:  "ui-state-default",
+        styleChangeDuration: 1000,
+        stylechange: function (event, ui) {
+            alert('I (sortable7) have received an item');
+        }
+    }).disableSelection();
+
+    $( "#sortable8" ).sortable({
+        connectWith: ".connectedSortableCallback",
+        styleClass:  "ui-state-highlight",
+        styleChangeDuration: 1000,
+        stylechange: function (event, ui) {
+            alert('I (sortable8) have received an item');
+        }
+    }).disableSelection();
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;ul id=&quot;sortable7&quot; class=&quot;connectedSortableCallback ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul id=&quot;sortable8&quot; class=&quot;connectedSortableCallback ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+                    </pre>
+                </div>
+                
+                <a name="event"></a>
+                <h2>Custom Functionality after Transition from Trigger</h2>
+                <p>
+                    Sort items from one list into another and vice versa.
+                    Call a custom function after the transition is complete
+                    from a the <code>stylechange</code> trigger.
+                </p>
+                <div class="box">
+                    <ul id="sortable9" class="connectedSortableTrigger ui-sortable">
+                        <li class="ui-state-default">List A Item 1</li>
+                        <li class="ui-state-default">List A Item 2</li>
+                        <li class="ui-state-default">List A Item 3</li>
+                        <li class="ui-state-default">List A Item 4</li>
+                        <li class="ui-state-default">List A Item 5</li>
+                    </ul>
+                    <ul id="sortable10" class="connectedSortableTrigger ui-sortable">
+                        <li class="ui-state-highlight">List B Item 1</li>
+                        <li class="ui-state-highlight">List B Item 2</li>
+                        <li class="ui-state-highlight">List B Item 3</li>
+                        <li class="ui-state-highlight">List B Item 4</li>
+                        <li class="ui-state-highlight">List B Item 5</li>
+                    </ul>
+                </div>
+                <div class='demo-code'>
+                    <h4>JavaScript:</h4>
+                    <pre class='prettyprint'>
+
+    //Custom Functionality after Transition from Trigger
+    $( "#sortable9" ).sortable({
+        connectWith: ".connectedSortableTrigger",
+        styleClass:  "ui-state-default",
+        styleChangeDuration: 1000
+    }).disableSelection();
+
+    $( "#sortable10" ).sortable({
+        connectWith: ".connectedSortableTrigger",
+        styleClass:  "ui-state-highlight",
+        styleChangeDuration: 1000
+    }).disableSelection();
+
+    $("#sortable9, #sortable10").on(
+        'sortstylechange',
+        function (e) {
+            alert('sortable9 or sortable10 recived an item');
+        }
+    );
+                    </pre>
+                    
+                    <h4>HTML:</h4>
+                    <pre class='prettyprint'>
+
+    &lt;ul id=&quot;sortable9&quot; class=&quot;connectedSortableTrigger ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-default&quot;&gt;List A Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul id=&quot;sortable10&quot; class=&quot;connectedSortableTrigger ui-sortable&quot;&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 1&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 2&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 3&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 4&lt;/li&gt;
+        &lt;li class=&quot;ui-state-highlight&quot;&gt;List B Item 5&lt;/li&gt;
+    &lt;/ul&gt;
+                    </pre>
+                </div>
+                
+                <a name="options"></a>
+                <h1>Options</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class='attr-option'>Option</th>
+                            <th class='attr-description'>Description</th>
+                            <th class='attr-default'>Default</th>
+                        </tr>
+                        <tr>
+                            <td>styleClass</td>
+                            <td>
+                                Class that will be added to any sortable list
+                                item that is moved to the current sortable
+                                element.  If set to null the class will not be
+                                altered.
+                            </td>
+                            <td>null</td>
+                        </tr>
+                        <tr>
+                            <td>styleChangeDuration</td>
+                            <td>
+                                A string representing one of the three 
+                                predefined speeds ("slow", "normal", or "fast") 
+                                or the number of milliseconds to run the 
+                                transition animation (e.g. 1000).
+                            </td>
+                            <td>500</td>
+                        </tr>
+                        <tr>
+                            <td>styleChangeEasing</td>
+                            <td>
+                                A string indicating which 
+                                <a href="http://api.jqueryui.com/easings/" target="_blank">easing</a>
+                                function to use for the transition.
+                            </td>
+                            <td>swing</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <a href="http://api.jqueryui.com/sortable/#options" target="_blank">Click here</a>
+                    for a list of the options 
+                    provided by jQuery UI Sortable.
+                </p>
+                
+                <a name="events"></a>
+                <h1>Events</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th class='attr-event'>Event</th>
+                            <th class='attr-description'>Description</th>
+                        </tr>
+                        <tr>
+                            <td>stylechange</td>
+                            <td>
+                                Fires when the style change transition 
+                                completes.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <a href="http://api.jqueryui.com/sortable/#events" target="_blank">Click here</a>
+                    for a list of the events 
+                    provided by jQuery UI Sortable.
+                </p>
+                
+                <a name="methods"></a>
+                <h1>Methods</h1>
+                <p>
+                    There are no public methods added by this plugin.
+                    <a href="http://api.jqueryui.com/sortable/#methods" target="_blank">Click here</a>
+                    for a list of the methods 
+                    provided by jQuery UI Sortable.
+                </p>
+                    
+                <a name="required"></a>
+                <h1>Required Files</h1>
+                <ul>
+                    <li>
+                        <strong>jquery.ui.sortable.style.js</strong>
+                        - jQuery UI Sortable Style Change
+                    </li>
+                    <li>
+                        <strong>jquery.ui.touch.js</strong>
+                        - Touch Events support for jQuery UI
+                        (if you want this plugin to work on devices)
+                    </li>
+                    <li>
+                        jQuery 1.7.2 or higher
+                    </li>
+                    <li>
+                        jQuery UI 1.9.1 or higher
+                    </li>
+                </ul>
+                <p>
+                    <a href="http://github.com/abconrad/jquery-ui-sortable-style-changer" target="_blank">Follow This Project on GitHub</a>
+                </p>
+                
+            </div>
+        </div>
+
+
+    </body>
+</html>
