@@ -56,7 +56,7 @@
                         o.styleChangeDuration,
                         o.styleChangeEasing,
                         function () {
-                            self._trigger('stylechange', event, ui);
+                            self._trigger('stylechange', e, ui);
                         }
                     );
                 }
@@ -73,12 +73,23 @@
             case 'styleClass':
                 //Changes the the class of the li when the "styleClass" option
                 //is changed
-                el.find('li').removeClass(o.style);
+                el.find('li').removeClass(o.styleClass);
                 el.find('li').addClass(value);
                 break;
             }
 
             self._superApply(arguments);
+        },
+        _destroy: function () {
+            var self = this,
+                el = self.element,
+                o = self.options;
+
+            //removes the class if there is one
+            el.find('li').removeClass(o.styleClass);
+            el.off('sortreceive');
+
+            self._super();
         }
     });
 }(jQuery));
