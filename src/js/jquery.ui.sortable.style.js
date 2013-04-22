@@ -4,7 +4,7 @@
  * jQuery UI Sortable Style Changer v0.1
  * Copyright (c) 2013 Bart Conrad
  *
- * http://www.erichynds.com/jquery/jquery-ui-multiselect-widget/
+ * http://www.hippomanager.com/
  *
  * Depends:
  *   - jQuery 1.7.2+
