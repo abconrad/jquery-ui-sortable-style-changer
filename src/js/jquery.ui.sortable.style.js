@@ -46,15 +46,30 @@
                 el = self.element,
                 o = self.options;
 
-            //Changes the class of the item to the class from the
-            //that is set in the "style" option
+            //Global Vars
+            self.userReceive = o.receive || $.noop;
+
             o.receive = function (e, ui) {
-                self._receive(e, ui);
+                self._receive(
+                    e,
+                    ui,
+                    function (e, ui) {
+                        self.userReceive(e, ui);
+                    }
+                );
             };
 
             self._super();
         },
-        _receive: function (e, ui) {
+        /**
+         * Changes the class of the item to the class from the
+         * that is set in the "style" option
+         *
+         * @param {event} e
+         * @param {object} ui
+         * @param {callback} onStyleChanged
+         */
+        _receive: function (e, ui, onStyleChanged) {
             var self = this,
                 el = self.element,
                 o = self.options;
@@ -67,6 +82,7 @@
                     o.styleChangeEasing,
                     function () {
                         self._trigger('stylechange', e, ui);
+                        onStyleChanged();
                     }
                 );
             }
