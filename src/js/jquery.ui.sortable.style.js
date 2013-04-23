@@ -46,23 +46,50 @@
                 el = self.element,
                 o = self.options;
 
-            //Changes the class of the item to the class from the
-            //that is set in the "style" option
-            el.on('sortreceive', function (e, ui) {
-                if (o.styleClass !== null && o.styleClass !== undefined) {
-                    $(ui.item).switchClass(
-                        $(ui.item).attr('class'),
-                        o.styleClass,
-                        o.styleChangeDuration,
-                        o.styleChangeEasing,
-                        function () {
-                            self._trigger('stylechange', e, ui);
-                        }
-                    );
-                }
-            });
+            //Global Vars
+            self.userReceive = o.receive || $.noop;
+
+            // Replace the built in receive callback with our custom
+            // function self._receive()
+            o.receive = function (e, ui) {
+                self._receive(
+                    e,
+                    ui,
+                    function (e, ui) {
+                        self.userReceive(e, ui);
+                    }
+                );
+            };
 
             self._super();
+        },
+        /**
+         * Changes the class of the item to the class from the
+         * that is set in the "style" option
+         *
+         * @param {event} e
+         * @param {object} ui
+         * @param {callback} onStyleChanged
+         */
+        _receive: function (e, ui, onStyleChanged) {
+            var self = this,
+                el = self.element,
+                o = self.options;
+
+            if (o.styleClass !== null && o.styleClass !== undefined) {
+                // Replace the list item's current class with the class
+                // set in this sortable element's "styleClass" option.
+                $(ui.item).switchClass(
+                    $(ui.item).attr('class'),
+                    o.styleClass,
+                    o.styleChangeDuration,
+                    o.styleChangeEasing,
+                    function () {
+                        self._trigger('stylechange', e, ui);
+                        onStyleChanged(); // Run after the style is changed
+                    }
+                );
+            }
         },
         _setOption: function (key, value) {
             var self = this,
@@ -87,7 +114,6 @@
 
             //removes the class if there is one
             el.find('li').removeClass(o.styleClass);
-            el.off('sortreceive');
 
             self._super();
         }
