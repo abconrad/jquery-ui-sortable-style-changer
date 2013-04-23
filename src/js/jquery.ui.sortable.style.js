@@ -49,6 +49,8 @@
             //Global Vars
             self.userReceive = o.receive || $.noop;
 
+            // Replace the built in receive callback with our custom
+            // function self._receive()
             o.receive = function (e, ui) {
                 self._receive(
                     e,
@@ -75,6 +77,8 @@
                 o = self.options;
 
             if (o.styleClass !== null && o.styleClass !== undefined) {
+                // Replace the list item's current class with the class
+                // set in this sortable element's "styleClass" option.
                 $(ui.item).switchClass(
                     $(ui.item).attr('class'),
                     o.styleClass,
@@ -82,7 +86,7 @@
                     o.styleChangeEasing,
                     function () {
                         self._trigger('stylechange', e, ui);
-                        onStyleChanged();
+                        onStyleChanged(); // Run after the style is changed
                     }
                 );
             }
